@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const Cloudinary = () => {
     const cloudName = 'dqgavjgs1';
-    const unsignedUploadPrefix = 'qnwjqsbm';
+    const unsignedUploadPrefix = 'zynqapjr';
     const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
 
     const [imageUrl, setImageUrl] = useState([]);
@@ -34,6 +34,6 @@ const Cloudinary = () => {
         }
         setImageUrl(newImageUrl);
     }
-    return { handleUpload, imageUrl, setImageUrl};
+    return { handleUpload, imageUrl, setImageUrl };
 }
 export default Cloudinary;
