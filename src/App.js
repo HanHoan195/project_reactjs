@@ -7,6 +7,8 @@ import { Route, Routes } from 'react-router-dom';
 import Navbar from './layout/Navbar';
 import Dashboard from './dashboard/Dashboard';
 import AddNewMovie from './dashboard/AddNewMovie';
+import EditMovie from './dashboard/EditMovie';
+import MovieDetail from './movie/MovieDetail';
 
 function App() {
   return (
@@ -17,7 +19,8 @@ function App() {
         <Route path='/home' element={<ListMovie />} />
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/dashboard/add' element={<AddNewMovie />} />
-
+        <Route path='/dashboard/edit/:movieId' element={<EditMovie />} />
+        <Route path='/home/detai/:movieId' element={<MovieDetail />} />
       </Routes>
     </>
   );

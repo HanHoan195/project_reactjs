@@ -13,3 +13,14 @@
 .navbar-brand{
   color: aliceblue;
 }
+.card-img-top{
+  max-width: 400px !important;
+  height: 430px;
+}
+.card-body{
+  background-color: rgb(2, 9, 48);
+  color: aliceblue;
+}
+
+
+

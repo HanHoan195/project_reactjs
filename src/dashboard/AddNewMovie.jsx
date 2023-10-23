@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { NavLink, useNavigate } from "react-router-dom";
@@ -18,26 +18,32 @@ const movieSchema = yup.object({
     director: yup
         .string()
         .required('Đạo diễn không được để trống'),
-    actor: yup
+    country: yup
         .string()
-        .required('Diễn viên không được để trống'),
+        .required('Quốc gia không được để trống'),
     desscription: yup
         .string()
         .required('Mô tả không được để trống'),
 });
 
+const category = ["Hành động", "Viễn tưởng", "Phiêu lưu", "Kinh dị", "Truyền hình", "Tâm lý", 'Hình sự', "Võ thuật"]
 
 const AddNewMovie = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [changedAvatar, setChangedAvatar] = useState(false);
     let { handleUpload, imageUrl, setImageUrl } = Cloudinary();
+    const [selectedCategory, setSelectedCategory] = useState(new Array(category.length).fill(false));
     const { register, handleSubmit, formState: { errors }, reset } = useForm({ resolver: yupResolver(movieSchema) })
 
     const handleAddMovie = async (data) => {
         setLoading(true);
+
+        if (imageUrl) {
+            data.avatar = imageUrl;
+        }
         try {
-            await axios.post("https://653224e74d4c2e3f333dab74.mockapi.io/api/movies/movie", data, {
+            await axios.post("http://localhost:3300/movie", data, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -62,8 +68,24 @@ const AddNewMovie = () => {
     }
 
     const handleUploadPoster = async (e) => {
+        console.log('ảnh', e.target.files[0]);
         setChangedAvatar(false);
         await handleUpload(e.target.files[0])
+    }
+
+    const handleChangeCategory = (e) => {
+        const currentCategory = e.target.value;
+        let updateCategory = [];
+        if (!selectedCategory) {
+            updateCategory.push(currentCategory)
+        } else {
+            if (selectedCategory.includes(currentCategory)) {
+                updateCategory = selectedCategory.filter(c => c !== currentCategory);
+            } else {
+                updateCategory = [...selectedCategory, currentCategory]
+            }
+        }
+        setSelectedCategory(updateCategory);
     }
 
     return (
@@ -83,7 +105,7 @@ const AddNewMovie = () => {
                                 <div class="mb-3">
                                     <label for="avatar" class="form-label">Poster</label>
                                     <input type="file" name="avatar" id="avatar" class="form-control"
-                                        {...register("avatar")}
+                                        {...register("imageUrl")}
                                         onChange={(event) => handleUploadPoster(event)}
                                     />
                                     <img src={imageUrl} alt="" style={{ width: 410, height: 500 }}
@@ -106,9 +128,9 @@ const AddNewMovie = () => {
                                     <span className="text-danger">{errors?.duration?.message}</span>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="actor" class="form-label">Diễn viên</label>
-                                    <input type="text" name="actor" id="actor" class="form-control"
-                                        {...register("actor")} />
+                                    <label for="country" class="form-label">Quốc gia</label>
+                                    <input type="text" name="country" id="country" class="form-control"
+                                        {...register("country")} />
                                     <span className="text-danger">{errors?.actor?.message}</span>
                                 </div>
                                 <div class="mb-3">
@@ -119,15 +141,17 @@ const AddNewMovie = () => {
                                 </div>
                                 <div class="mb-3">
                                     <label for="category" class="form-label">Thể loại</label>
-                                    <select name="category" id="category" class="form-select" {...register("category")}>
-                                        <option value="action">Hành động</option>
-                                        <option value="comedy">Hài hước</option>
-                                        <option value="horror">Kinh dị</option>
-                                        <option value="thriller">Giật gân</option>
-                                        <option value="fantasy">Viễn tưởng</option>
-                                        <option value="adventure">Phiêu lưu</option>
-                                        <option value="romance">Lãng mạn</option>
-                                    </select>
+                                    {category.map(category => {
+                                        return (
+                                            <div key={category} className='col-lg-4'>
+                                                <input type="checkbox" id={category} name={category} value={category}
+                                                    onChange={handleChangeCategory}
+                                                    {...register("category")}
+                                                ></input>
+                                                <label htmlFor={category}>{category}</label>
+                                            </div>
+                                        )
+                                    })}
                                     <span className="text-danger">{errors?.category?.message}</span>
                                 </div>
                                 <div class="mb-3">
@@ -146,4 +170,5 @@ const AddNewMovie = () => {
         </div>
     )
 }
+export { movieSchema, category }
 export default AddNewMovie;

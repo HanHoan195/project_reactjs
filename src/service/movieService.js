@@ -1,11 +1,18 @@
 import axios from "axios";
+import { date } from "yup";
 
 class MovieService {
     static getAll() {
-        return axios.get(`https://653224e74d4c2e3f333dab74.mockapi.io/api/movies/movie`)
+        return axios.get(`http://localhost:3300/movie`)
     }
     static addMovie(data) {
-        return axios.get(`https://653224e74d4c2e3f333dab74.mockapi.io/api/movies/movie`, data)
+        return axios.get(`http://localhost:3300/movie`, data)
+    }
+    static getById(id) {
+        return axios.get(`http://localhost:3300/movie/${id}`)
+    }
+    static editMovie(id, data) {
+        return axios.patch(`http://localhost:3300/movie/${id}`, data)
     }
 }
 export default MovieService;
