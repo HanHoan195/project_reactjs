@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import MovieService from "../service/movieService"
 import Spinner from "../layout/Spinner"
 import { Link } from "react-router-dom"
+import Swal from "sweetalert2"
 
 const Dashboard = () => {
     const [listMovies, setListMovies] = useState([])
@@ -17,7 +18,6 @@ const Dashboard = () => {
                 setListMovies(sortedMovies)
                 setLoading(false)
             }
-
             getMovies();
 
         } catch (error) {
@@ -25,12 +25,93 @@ const Dashboard = () => {
         }
     }, [])
 
+    // const handleDelete = async (movieRemove) => {
+    //     Swal.fire({
+    //         title: 'Are you sure?',
+    //         text: "You won't be able to revert this!",
+    //         icon: 'warning',
+    //         showCancelButton: true,
+    //         confirmButtonColor: '#3085d6',
+    //         cancelButtonColor: '#d33',
+    //         confirmButtonText: 'Yes, delete it!'
+    //       }).then((result) => {
+    //         if (result.isConfirmed) {
+    //           Swal.fire(
+    //             'Deleted!',
+    //             'Your file has been deleted.',
+    //             'success'
+    //           )
+    //         }
+    //       })
+    //     let confirm = window.confirm("Xóa phim này?")
+    //     if (!confirm) return;
+
+    //     try {
+    //         await MovieService.delete(movieRemove.id)
+
+    //         setListMovies((prevListMovies) => prevListMovies.filter((item) => item !== movieRemove))
+    //         Swal.fire({
+    //             position: 'top-end',
+    //             icon: 'success',
+    //             title: 'Xóa thành công',
+    //             showConfirmButton: false,
+    //             timer: 1500
+    //         })
+
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+
+    // }
+
+    const handleDelete = async (movieRemove) => {
+        try {
+            const result = await Swal.fire({
+                title: 'Xóa phim này?',
+                text: "",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Xóa'
+            });
+
+            if (!result.isConfirmed) return;
+
+            // User confirmed the deletion
+            await MovieService.delete(movieRemove.id);
+            setListMovies((prevListMovies) => prevListMovies.filter((item) => item.id !== movieRemove.id));
+
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Xóa thành công',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+
+
+    function truncateDescription(desscription, maxLength) {
+        if (desscription.length <= maxLength) {
+            return desscription;
+        } else {
+            return desscription.slice(0, maxLength) + "...";
+        }
+    }
     return (
-        <div className="container-fluid">
+        <div className="container-fluid dashboard">
             <div>
-                <table className="table table-hover">
+                <h2 style={{ color: "black" }}>
+                    List Movie
+                </h2>
+                <table className="table table-hover dashboard">
                     <thead>
-                        <tr>
+                        <tr >
                             <th scope="col">#</th>
                             <th scope="col">Tên phim</th>
                             <th scope="col">Thời lượng</th>
@@ -51,21 +132,25 @@ const Dashboard = () => {
                         {
                             loading ? <Spinner /> : (
                                 listMovies && listMovies.map((item, index) =>
-                                    <tr key={index}>
-                                        <td>{item.id}</td>
-                                        <td>{item.nameMovie}</td>
-                                        <td>{item.duration}</td>
-                                        <td>{item.country}</td>
-                                        <td>{item.director}</td>
-                                        <td>{item.category.join(',')}</td>
-                                        <td>{item.desscription}</td>
+                                    <tr key={index} >
+                                        <td style={{ color: "black" }}>{item.id}</td>
+                                        <td style={{ color: "black" }}>{item.nameMovie}</td>
+                                        <td style={{ color: "black" }}>{item.duration}</td>
+                                        <td style={{ color: "black" }}>{item.country}</td>
+                                        <td style={{ color: "black" }}>{item.director}</td>
+                                        <td style={{ color: "black" }}>{item.category.join(',')}</td>
+                                        <td style={{ color: "black" }}>
+                                            {truncateDescription(item.desscription, 100)}
+                                        </td>
                                         <td>
                                             <Link to={`/dashboard/edit/${item.id}`}>
                                                 <button className="btn btn-outline-primary">Edit</button>
                                             </Link>
                                         </td>
                                         <td>
-                                            <button className="btn btn-outline-danger">Delete</button>
+                                            <button className="btn btn-outline-danger"
+                                                onClick={() => handleDelete(item)}
+                                            >Delete</button>
                                         </td>
                                     </tr>
                                 )

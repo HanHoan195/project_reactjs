@@ -152,7 +152,7 @@ const EditMovie = () => {
                                         defaultValue={movieEdit.director} />
                                     <span className="text-danger">{errors?.director?.message}</span>
                                 </div>
-                                <div class="mb-3">
+                                <div class="mb-3 row">
                                     <label for="category" class="form-label">Thể loại</label>
                                     {category.map(category => {
                                         return (
@@ -173,6 +173,13 @@ const EditMovie = () => {
                                     <textarea name="desscription" id="desscription" class="form-control" rows="4"
                                         {...register("desscription")} defaultValue={movieEdit.desscription}></textarea>
                                     <span className="text-danger">{errors?.desscription?.message}</span>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="trailer_url" class="form-label">Trailer</label>
+                                    <input type="text" name="trailer_url" id="trailer_url" class="form-control"
+                                        defaultValue={movieEdit.trailer_url}
+                                        {...register("trailer_url")} />
+                                    <span className="text-danger">{errors?.trailer_url?.message}</span>
                                 </div>
                                 <button type="submit" class="btn btn-primary me-3">Submit</button>
                                 <button type="button" class="btn btn-danger" onClick={() => reset()}>Cancel</button>

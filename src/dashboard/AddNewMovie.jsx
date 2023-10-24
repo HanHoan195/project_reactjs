@@ -24,6 +24,9 @@ const movieSchema = yup.object({
     desscription: yup
         .string()
         .required('Mô tả không được để trống'),
+    trailer_url: yup
+        .string()
+        .required('Chưa có trailer  '),
 });
 
 const category = ["Hành động", "Viễn tưởng", "Phiêu lưu", "Kinh dị", "Truyền hình", "Tâm lý", 'Hình sự', "Võ thuật"]
@@ -68,7 +71,6 @@ const AddNewMovie = () => {
     }
 
     const handleUploadPoster = async (e) => {
-        console.log('ảnh', e.target.files[0]);
         setChangedAvatar(false);
         await handleUpload(e.target.files[0])
     }
@@ -139,7 +141,7 @@ const AddNewMovie = () => {
                                         {...register("director")} />
                                     <span className="text-danger">{errors?.director?.message}</span>
                                 </div>
-                                <div class="mb-3">
+                                <div class="mb-3 row">
                                     <label for="category" class="form-label">Thể loại</label>
                                     {category.map(category => {
                                         return (
@@ -158,7 +160,13 @@ const AddNewMovie = () => {
                                     <label for="description" class="form-label">Giới thiệu</label>
                                     <textarea name="description" id="description" class="form-control" rows="4"
                                         {...register("desscription")}></textarea>
-                                    <span className="text-danger">{errors?.desssscription?.message}</span>
+                                    <span className="text-danger">{errors?.desscription?.message}</span>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="trailer_url" class="form-label">Trailer</label>
+                                    <input type="text" name="trailer_url" id="trailer_url" class="form-control"
+                                        {...register("trailer_url")} />
+                                    <span className="text-danger">{errors?.trailer_url?.message}</span>
                                 </div>
                                 <button type="submit" class="btn btn-primary me-3">Submit</button>
                                 <button type="button" class="btn btn-danger" onClick={() => reset()}>Cancel</button>

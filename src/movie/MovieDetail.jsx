@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import Spinner from "../layout/Spinner"
 import MovieService from "../service/movieService"
+import ReactPlayer from "react-player"
 
 const MovieDetail = () => {
     const [movieDetail, setMovieDetail] = useState({})
@@ -70,14 +71,15 @@ const MovieDetail = () => {
                     <div className="mt-4">
                         <h3>Trailer</h3>
                         <div className="embed-responsive embed-responsive-16by9 mb-5"
-                            style={{ width: "100%", height: "500px" }}>
-                            <iframe className="embed-responsive-item" src={trailer_url} title={nameMovie}></iframe>
+                            style={{ width: "100%", height: "500px" }} >
+                            <ReactPlayer
+                                url={trailer_url}
+                                width="100%"
+                                height="500px"
+                                playing={true}
+                                controls={false}
+                            />
                         </div>
-                        {/* <video className="mb-5" style={{ width: "100%", height: "500px" }} controls>
-                            <source src={trailer_url} type="video/mp3" />
-                            Your browser does not support the video tag.
-                        </video> */}
-
                     </div>
 
                 </div>

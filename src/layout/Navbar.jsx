@@ -1,6 +1,9 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useSearchParams } from "react-router-dom";
 
 const Navbar = () => {
+    const [searchParams, setSearchParams] = useSearchParams();
+
+
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container">
@@ -22,11 +25,16 @@ const Navbar = () => {
                         </li>
                     </ul>
                     <form className="d-flex">
-                        <input
-                            className="form-control me-2"
-                            type="search"
-                            placeholder="Search"
-                            aria-label="Search"
+                        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                            value={searchParams.get("filter" || "")}
+                            onChange={event => {
+                                let filter = event.target.value;
+                                if (filter) {
+                                    setSearchParams({ filter })
+                                } else {
+                                    setSearchParams({})
+                                }
+                            }}
                         />
                         <button className="btn btn-outline-secondary" type="submit">
                             Search
