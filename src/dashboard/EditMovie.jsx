@@ -107,11 +107,11 @@ const EditMovie = () => {
             {
                 loading ? <Spinner /> : (
                     <form onSubmit={handleSubmit(handleEditMovie)}>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label for="avatar" class="form-label">Poster</label>
-                                    <input type="file" name="avatar" id="avatar" class="form-control"
+                        <div className="row">
+                            <div className="col-md-4">
+                                <div className="mb-3">
+                                    <label for="avatar" className="form-label">Poster</label>
+                                    <input type="file" name="avatar" id="avatar" className="form-control"
                                         {...register("imageUrl")}
                                         onChange={(event) => handleUploadPoster(event)}
                                     />
@@ -122,18 +122,18 @@ const EditMovie = () => {
                                     <span className="text-danger">{errors?.avatar?.message}</span>
                                 </div>
                             </div>
-                            <div class="col-md-8">
-                                <div class="mb-3">
-                                    <label for="name_movie" class="form-label">Tên phim</label>
-                                    <input type="text" name="name_movie" id="name_movie" class="form-control"
+                            <div className="col-md-8" style={{ marginBottom: "50px" }}>
+                                <div className="mb-3">
+                                    <label for="name_movie" className="form-label">Tên phim</label>
+                                    <input type="text" name="name_movie" id="name_movie" className="form-control"
                                         {...register("nameMovie")}
                                         defaultValue={movieEdit.nameMovie}
                                     />
                                     <span className="text-danger">{errors?.nameMovie?.message}</span>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="duration" class="form-label">Thời lượng</label>
-                                    <input type="text" name="duration" id="duration" class="form-control"
+                                <div className="mb-3">
+                                    <label for="duration" className="form-label">Thời lượng</label>
+                                    <input type="text" name="duration" id="duration" className="form-control"
                                         {...register("duration")}
                                         defaultValue={movieEdit.nameMovie} />
                                     <span className="text-danger">{errors?.duration?.message}</span>
@@ -146,14 +146,14 @@ const EditMovie = () => {
                                     <span className="text-danger">{errors?.country?.message}</span>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="actor" class="form-label">Đạo diễn</label>
-                                    <input type="text" name="director" id="director" class="form-control"
+                                    <label for="actor" className="form-label">Đạo diễn</label>
+                                    <input type="text" name="director" id="director" classNamev="form-control"
                                         {...register("director")}
                                         defaultValue={movieEdit.director} />
                                     <span className="text-danger">{errors?.director?.message}</span>
                                 </div>
-                                <div class="mb-3 row">
-                                    <label for="category" class="form-label">Thể loại</label>
+                                <div className="mb-3 row">
+                                    <label for="category" className="form-label">Thể loại</label>
                                     {category.map(category => {
                                         return (
                                             <div key={category} className='col-lg-4'>
@@ -169,20 +169,20 @@ const EditMovie = () => {
                                     <span className="text-danger">{errors?.category?.message}</span>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="desscription" class="form-label">Giới thiệu</label>
-                                    <textarea name="desscription" id="desscription" class="form-control" rows="4"
+                                    <label for="desscription" className="form-label">Giới thiệu</label>
+                                    <textarea name="desscription" id="desscription" className="form-control" rows="4"
                                         {...register("desscription")} defaultValue={movieEdit.desscription}></textarea>
                                     <span className="text-danger">{errors?.desscription?.message}</span>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="trailer_url" class="form-label">Trailer</label>
-                                    <input type="text" name="trailer_url" id="trailer_url" class="form-control"
+                                    <label for="trailer_url" className="form-label">Trailer</label>
+                                    <input type="text" name="trailer_url" id="trailer_url" className="form-control"
                                         defaultValue={movieEdit.trailer_url}
                                         {...register("trailer_url")} />
                                     <span className="text-danger">{errors?.trailer_url?.message}</span>
                                 </div>
-                                <button type="submit" class="btn btn-primary me-3">Submit</button>
-                                <button type="button" class="btn btn-danger" onClick={() => reset()}>Cancel</button>
+                                <button type="submit" className="btn btn-primary me-3">Submit</button>
+                                <button type="button" className="btn btn-danger" onClick={() => reset()}>Cancel</button>
                             </div>
                         </div>
                     </form>
