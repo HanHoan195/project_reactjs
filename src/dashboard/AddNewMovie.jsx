@@ -34,8 +34,8 @@ const category = ["Hành động", "Viễn tưởng", "Phiêu lưu", "Kinh dị"
 const AddNewMovie = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
-    const [changedAvatar, setChangedAvatar] = useState(false);
-    let { handleUpload, imageUrl, setImageUrl } = Cloudinary();
+    const [setChangedAvatar] = useState(false);
+    let { handleUpload, imageUrl } = Cloudinary();
     const [selectedCategory, setSelectedCategory] = useState(new Array(category.length).fill(false));
     const { register, handleSubmit, formState: { errors }, reset } = useForm({ resolver: yupResolver(movieSchema) })
 
@@ -46,7 +46,7 @@ const AddNewMovie = () => {
             data.avatar = imageUrl;
         }
         try {
-            await axios.post("http://localhost:3300/movie", data, {
+            await axios.post("https://json-server-xir9.onrender.com/movie", data, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -67,7 +67,6 @@ const AddNewMovie = () => {
         } catch (error) {
             console.error(error);
         }
-        console.log(data);
     }
 
     const handleUploadPoster = async (e) => {

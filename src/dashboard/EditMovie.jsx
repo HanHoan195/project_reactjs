@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink, Navigate, useNavigate, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import Spinner from "../layout/Spinner";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -27,7 +27,6 @@ const EditMovie = () => {
             async function getMovieById() {
                 let res = await MovieService.getById(movieId)
                 setMovieEdit(res.data)
-                console.log('res', res.data);
                 setLoading(false)
             }
 
@@ -41,23 +40,12 @@ const EditMovie = () => {
     const handleUploadPoster = async (e) => {
         setChangedAvatar(false);
         await handleUpload(e.target.files[0]);
-
-        // Cập nhật uploadedImageUrl để hiển thị ảnh mới
-        // setImageUrl(imageUrl);
-        console.log('ảnh sau upload', imageUrl);
     }
 
     const handleEditMovie = async (movieEdit) => {
         try {
             setLoading(true)
-            // if (!changedAvatar && !imageUrl){
-            //     alert("Bạn chưa cập nhật poster");
-            //     return;
-            //     }else{
-            //         movieEdit['poster']=imageUrl;
-            //         let res = await MovieService.editMovie(movieId, movieEdit);
-            //         window.location.href = "/admin/movies"
-            //         }
+          
             await MovieService.editMovie(movieId, movieEdit)
             setMovieEdit(movieEdit)
             setLoading(false)

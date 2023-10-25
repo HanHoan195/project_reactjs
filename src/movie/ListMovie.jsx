@@ -7,7 +7,7 @@ import { Link, useSearchParams } from "react-router-dom";
 const ListMovie = () => {
     const [listMovies, setListMovies] = useState([])
     const [loading, setLoading] = useState(false)
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
 
     useEffect(() => {
         try {

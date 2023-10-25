@@ -16,7 +16,6 @@ const MovieDetail = () => {
             async function getMovieDetail() {
                 let res = await MovieService.getById(movieId)
                 setMovieDetail(res.data)
-                console.log('detail', res.data);
 
                 setLoading(false)
             }
