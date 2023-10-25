@@ -34,7 +34,7 @@ const category = ["Hành động", "Viễn tưởng", "Phiêu lưu", "Kinh dị"
 const AddNewMovie = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
-    const [setChangedAvatar] = useState(false);
+    const [, setChangedAvatar] = useState(false);
     let { handleUpload, imageUrl } = Cloudinary();
     const [selectedCategory, setSelectedCategory] = useState(new Array(category.length).fill(false));
     const { register, handleSubmit, formState: { errors }, reset } = useForm({ resolver: yupResolver(movieSchema) })
