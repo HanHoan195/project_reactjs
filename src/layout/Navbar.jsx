@@ -3,7 +3,6 @@ import { NavLink, useSearchParams } from "react-router-dom";
 const Navbar = () => {
     const [searchParams, setSearchParams] = useSearchParams();
 
-
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container">

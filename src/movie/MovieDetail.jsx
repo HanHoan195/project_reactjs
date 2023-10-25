@@ -63,7 +63,7 @@ const MovieDetail = () => {
                                 </tr>
                             </tbody>
                         </table>
-                        <p><strong>Mô tả:</strong> {desscription}</p>
+                        <p><strong>Giới thiệu:</strong> {desscription}</p>
 
                     </div>
 

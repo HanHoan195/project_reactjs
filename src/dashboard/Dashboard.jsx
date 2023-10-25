@@ -94,14 +94,16 @@ const Dashboard = () => {
                     <tbody>
                         {
                             loading ? <Spinner /> : (
-                                listMovies && listMovies.map((item, index) =>
-                                    <tr key={index} >
+                                listMovies && listMovies.map((item) =>
+                                    <tr key={item.id} >
                                         <td style={{ color: "black" }}>{item.id}</td>
                                         <td style={{ color: "black" }}>{item.nameMovie}</td>
                                         <td style={{ color: "black" }}>{item.duration}</td>
                                         <td style={{ color: "black" }}>{item.country}</td>
                                         <td style={{ color: "black" }}>{item.director}</td>
-                                        <td style={{ color: "black" }}>{item.category.join(',')}</td>
+                                        <td style={{ color: "black" }}>
+                                            {item.category && item.category.length > 0 ? item.category.join(', ') : "No Category"}
+                                        </td>
                                         <td style={{ color: "black" }}>
                                             {truncateDescription(item.desscription, 100)}
                                         </td>

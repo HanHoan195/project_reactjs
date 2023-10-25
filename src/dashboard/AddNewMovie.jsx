@@ -7,6 +7,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import Spinner from "../layout/Spinner";
 import Cloudinary from "../cloudinary/Cloudinary";
+import MovieService from "../service/movieService";
 
 const movieSchema = yup.object({
     nameMovie: yup
@@ -29,7 +30,7 @@ const movieSchema = yup.object({
         .required('Chưa có trailer  '),
 });
 
-const category = ["Hành động", "Viễn tưởng", "Phiêu lưu", "Kinh dị", "Truyền hình", "Tâm lý", 'Hình sự', "Võ thuật"]
+const category = ["Hành động", "Hoạt hình", "Viễn tưởng", "Phiêu lưu", "Kinh dị", "Truyền hình", "Tâm lý", 'Hình sự', "Võ thuật"]
 
 const AddNewMovie = () => {
     const navigate = useNavigate();
@@ -46,11 +47,7 @@ const AddNewMovie = () => {
             data.avatar = imageUrl;
         }
         try {
-            await axios.post("https://json-server-xir9.onrender.com/movie", data, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
+            await MovieService.addMovie(data);
 
             setLoading(false);
 
@@ -132,7 +129,7 @@ const AddNewMovie = () => {
                                     <label for="country" className="form-label">Quốc gia</label>
                                     <input type="text" name="country" id="country" className="form-control"
                                         {...register("country")} />
-                                    <span className="text-danger">{errors?.actor?.message}</span>
+                                    <span className="text-danger">{errors?.country?.message}</span>
                                 </div>
                                 <div className="mb-3">
                                     <label for="actor" className="form-label">Đạo diễn</label>
@@ -167,7 +164,7 @@ const AddNewMovie = () => {
                                         {...register("trailer_url")} />
                                     <span className="text-danger">{errors?.trailer_url?.message}</span>
                                 </div>
-                                <button type="submit" className="btn btn-primary me-3">Submit</button>
+                                <button type="submit" className="btn btn-primary me-3">Save</button>
                                 <button type="button" className="btn btn-danger" onClick={() => reset()}>Cancel</button>
                             </div>
                         </div>

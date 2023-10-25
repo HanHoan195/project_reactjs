@@ -1,21 +1,24 @@
 import axios from "axios";
-import { date } from "yup";
 
+// const DOMAIN_API = `https://json-server-xir9.onrender.com`
+const DOMAIN_API = `http://localhost:3300`
 class MovieService {
+
+
     static getAll() {
-        return axios.get(`https://json-server-xir9.onrender.com/movie`)
-    }
-    static addMovie(data) {
-        return axios.post(`https://json-server-xir9.onrender.com/movie`, data)
+        return axios.get(DOMAIN_API + `/movie`)
     }
     static getById(id) {
-        return axios.get(`https://json-server-xir9.onrender.com/movie/${id}`)
+        return axios.get(DOMAIN_API + `/movie/${id}`)
+    }
+    static addMovie(data) {
+        return axios.post(DOMAIN_API + `/movie`, data)
     }
     static delete(id) {
-        return axios.delete(`https://json-server-xir9.onrender.com/movie/${id}`)
+        return axios.delete(DOMAIN_API + `/movie/${id}`)
     }
     static editMovie(id, data) {
-        return axios.patch(`https://json-server-xir9.onrender.com/movie/${id}`, data)
+        return axios.patch(DOMAIN_API + `/movie/${id}`, data)
     }
 }
 export default MovieService;

@@ -27,10 +27,13 @@ const EditMovie = () => {
             async function getMovieById() {
                 let res = await MovieService.getById(movieId)
                 setMovieEdit(res.data)
+                setSelectedCategory(res.data.category)
+                console.log(res.data.category);
                 setLoading(false)
             }
 
             getMovieById();
+
 
         } catch (error) {
             console.log(error);
@@ -45,7 +48,7 @@ const EditMovie = () => {
     const handleEditMovie = async (movieEdit) => {
         try {
             setLoading(true)
-          
+
             await MovieService.editMovie(movieId, movieEdit)
             setMovieEdit(movieEdit)
             setLoading(false)
@@ -83,8 +86,9 @@ const EditMovie = () => {
         }))
     }
 
+
     return (
-        <div class="container mt-2">
+        <div className="container mt-2">
             <div className="d-flex my-2">
                 <h3 className="me-3">Edit Movie</h3>
                 <NavLink className="btn btn-outline-primary" to={"/dashboard"}>
@@ -123,46 +127,48 @@ const EditMovie = () => {
                                     <label for="duration" className="form-label">Thời lượng</label>
                                     <input type="text" name="duration" id="duration" className="form-control"
                                         {...register("duration")}
-                                        defaultValue={movieEdit.nameMovie} />
+                                        defaultValue={movieEdit.duration} />
                                     <span className="text-danger">{errors?.duration?.message}</span>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="country" class="form-label">Quốc gia</label>
-                                    <input type="text" name="country" id="country" class="form-control"
+                                <div className="mb-3">
+                                    <label for="country" className="form-label">Quốc gia</label>
+                                    <input type="text" name="country" id="country" className="form-control"
                                         {...register("country")}
                                         defaultValue={movieEdit.country} />
                                     <span className="text-danger">{errors?.country?.message}</span>
                                 </div>
-                                <div class="mb-3">
+                                <div className="mb-3">
                                     <label for="actor" className="form-label">Đạo diễn</label>
-                                    <input type="text" name="director" id="director" classNamev="form-control"
+                                    <input type="text" name="director" id="director" className="form-control"
                                         {...register("director")}
-                                        defaultValue={movieEdit.director} />
+                                        defaultValue={movieEdit.director}
+                                    />
                                     <span className="text-danger">{errors?.director?.message}</span>
                                 </div>
                                 <div className="mb-3 row">
                                     <label for="category" className="form-label">Thể loại</label>
-                                    {category.map(category => {
+                                    {category.map(cat => {
                                         return (
-                                            <div key={category} className='col-lg-4'>
-                                                <input type="checkbox" id={category} name={category}
-                                                    defaultValue={category} onChange={handleChangeCategory}
-                                                    checked={selectedCategory?.includes(category) || ''}
+                                            <div key={cat} className='col-lg-4'>
+                                                <input type="checkbox"
+                                                    id={cat} name={cat}
+                                                    value={cat}
+                                                    onChange={handleChangeCategory}
                                                     {...register("category")}
                                                 ></input>
-                                                <label htmlFor={category}>{category}</label>
+                                                <label htmlFor={cat}>{cat}</label>
                                             </div>
                                         )
                                     })}
                                     <span className="text-danger">{errors?.category?.message}</span>
                                 </div>
-                                <div class="mb-3">
+                                <div className="mb-3">
                                     <label for="desscription" className="form-label">Giới thiệu</label>
                                     <textarea name="desscription" id="desscription" className="form-control" rows="4"
                                         {...register("desscription")} defaultValue={movieEdit.desscription}></textarea>
                                     <span className="text-danger">{errors?.desscription?.message}</span>
                                 </div>
-                                <div class="mb-3">
+                                <div className="mb-3">
                                     <label for="trailer_url" className="form-label">Trailer</label>
                                     <input type="text" name="trailer_url" id="trailer_url" className="form-control"
                                         defaultValue={movieEdit.trailer_url}
