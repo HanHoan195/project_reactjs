@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { NavLink, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import Swal from "sweetalert2";
 import Spinner from "../layout/Spinner";
 import Cloudinary from "../cloudinary/Cloudinary";
@@ -101,7 +100,7 @@ const AddNewMovie = () => {
                         <div className="row">
                             <div className="col-md-4">
                                 <div className="mb-3">
-                                    <label for="avatar" className="form-label">Poster</label>
+                                    <label htmlFor="avatar" className="form-label">Poster</label>
                                     <input type="file" name="avatar" id="avatar" className="form-control"
                                         {...register("imageUrl")}
                                         onChange={(event) => handleUploadPoster(event)}
@@ -114,31 +113,31 @@ const AddNewMovie = () => {
                             </div>
                             <div className="col-md-8" style={{ marginBottom: "50px" }}>
                                 <div className="mb-3">
-                                    <label for="name_movie" className="form-label">Tên phim</label>
+                                    <label htmlFor="name_movie" className="form-label">Tên phim</label>
                                     <input type="text" name="name_movie" id="name_movie" className="form-control"
                                         {...register("nameMovie")} />
                                     <span className="text-danger">{errors?.nameMovie?.message}</span>
                                 </div>
                                 <div className="mb-3">
-                                    <label for="duration" className="form-label">Thời lượng</label>
+                                    <label htmlFor="duration" className="form-label">Thời lượng</label>
                                     <input type="text" name="duration" id="duration" className="form-control"
                                         {...register("duration")} />
                                     <span className="text-danger">{errors?.duration?.message}</span>
                                 </div>
                                 <div className="mb-3">
-                                    <label for="country" className="form-label">Quốc gia</label>
+                                    <label htmlFor="country" className="form-label">Quốc gia</label>
                                     <input type="text" name="country" id="country" className="form-control"
                                         {...register("country")} />
                                     <span className="text-danger">{errors?.country?.message}</span>
                                 </div>
                                 <div className="mb-3">
-                                    <label for="actor" className="form-label">Đạo diễn</label>
+                                    <label htmlFor="actor" className="form-label">Đạo diễn</label>
                                     <input type="text" name="director" id="director" className="form-control"
                                         {...register("director")} />
                                     <span className="text-danger">{errors?.director?.message}</span>
                                 </div>
                                 <div className="mb-3 row">
-                                    <label for="category" className="form-label">Thể loại</label>
+                                    <label htmlFor="category" className="form-label">Thể loại</label>
                                     {category.map(category => {
                                         return (
                                             <div key={category} className='col-lg-4'>
@@ -153,13 +152,13 @@ const AddNewMovie = () => {
                                     <span className="text-danger">{errors?.category?.message}</span>
                                 </div>
                                 <div className="mb-3">
-                                    <label for="description" className="form-label">Giới thiệu</label>
+                                    <label htmlFor="description" className="form-label">Giới thiệu</label>
                                     <textarea name="description" id="description" className="form-control" rows="4"
                                         {...register("desscription")}></textarea>
                                     <span className="text-danger">{errors?.desscription?.message}</span>
                                 </div>
                                 <div className="mb-3">
-                                    <label for="trailer_url" className="form-label">Trailer</label>
+                                    <label htmlFor="trailer_url" className="form-label">Trailer</label>
                                     <input type="text" name="trailer_url" id="trailer_url" className="form-control"
                                         {...register("trailer_url")} />
                                     <span className="text-danger">{errors?.trailer_url?.message}</span>

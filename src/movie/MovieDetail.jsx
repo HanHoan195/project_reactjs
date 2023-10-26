@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import Spinner from "../layout/Spinner"
 import MovieService from "../service/movieService"
 import ReactPlayer from "react-player"
@@ -37,7 +37,9 @@ const MovieDetail = () => {
                         <img src={avatar} alt={nameMovie} style={{ width: "300px", height: "450px" }} />
                         <div className="mt-2" style={{ textAlign: "center" }}>
                             <button type="submit" className="btn btn-primary me-3">Tải phim</button>
-                            <button type="button" className="btn btn-danger">Xem phim</button>
+                            <Link to={`/watch/${movieId}`}>
+                                <button type="button" className="btn btn-danger">Xem phim</button>
+                            </Link>
                         </div>
                     </div>
 
